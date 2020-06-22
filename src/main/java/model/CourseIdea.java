@@ -4,6 +4,11 @@ public class CourseIdea {
     private String title;
     private String creator;
 
+    public CourseIdea(String title, String creator) {
+        this.title = title;
+        this.creator = creator;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
