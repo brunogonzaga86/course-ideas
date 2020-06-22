@@ -28,5 +28,22 @@ public class Main {
             model.put("username", username);
             return new ModelAndView(model, "sign-in.hbs");
         }, new HandlebarsTemplateEngine());
+
+        get("/ideas", (request, response) -> {
+            Map<String, Object> model = new HashMap<>();
+            model.put("ideas", dao.findAll());
+            return new ModelAndView(model, "ideas.hbs");
+        }, new HandlebarsTemplateEngine());
+
+        post("ideas", (request, response) -> {
+            String title = request.queryParams("title");
+            //TODO:bgs - This username is tied to the cookie implematation
+            CourseIdea courseIdea = new CourseIdea(title,
+                    request.cookie("username"));
+            dao.add(courseIdea);
+            response.redirect("/ideas");
+            return null;
+        });
+
     }
 }
